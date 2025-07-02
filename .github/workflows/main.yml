@@ -19,11 +19,11 @@ jobs:
         python-version: '3.11'
 
     - name: Install dependencies
-      working-directory: expermenting_BTP
+      working-directory: experimenting_BTP
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Run tests
-      working-directory: expermenting_BTP
+      working-directory: experimenting_BTP
       run: python -m pytest
