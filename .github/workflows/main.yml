@@ -19,12 +19,14 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Debug: Show working directory and files
+       - name: Debug: Show working directory and files
       run: |
         echo "PWD is $(pwd)"
-        echo "GitHub workspace: $GITHUB_WORKSPACE"
+        echo "GitHub workspace is: ${GITHUB_WORKSPACE}"
+        echo "Files in current directory:"
         ls -lah
-        ls -lah $GITHUB_WORKSPACE
+        echo "Files in GITHUB_WORKSPACE:"
+        ls -lah "${GITHUB_WORKSPACE}"
 
     - name: Install dependencies
       run: |
