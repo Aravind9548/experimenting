@@ -11,18 +11,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout source
+      uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
+    - name: Debug: Show working directory and files
+      run: |
+        echo "PWD is $(pwd)"
+        echo "GitHub workspace: $GITHUB_WORKSPACE"
+        ls -lah
+        ls -lah $GITHUB_WORKSPACE
+
     - name: Install dependencies
       run: |
+        cd $GITHUB_WORKSPACE
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Run tests
       run: |
+        cd $GITHUB_WORKSPACE
         python -m pytest
