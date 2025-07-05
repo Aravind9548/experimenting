@@ -133,10 +133,6 @@ def recommend():
         print(f"Error processing recommendation: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
-# Add health check endpoint
-@app.route("/health", methods=["GET"])
-def health_check():
-    return jsonify({"status": "ok", "message": "Music Recommender API is running"})
 
 # Serve React frontend
 @app.route('/')
