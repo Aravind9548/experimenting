@@ -8,7 +8,8 @@ import os
 from flask_cors import CORS
 
 # Initialize Flask app
-app = Flask(__name__, static_folder=os.path.join(os.pardir, 'frontend', 'build'), static_url_path='/')
+app = app = Flask(__name__, static_folder='build', static_url_path='/')
+
 CORS(app)  # Enable CORS for all routes
 
 # Load dataset
@@ -28,6 +29,9 @@ df['cluster'] = kmeans.fit_predict(X)
 
 # Create a feature matrix for similarity calculation
 feature_matrix = X
+@app.route("/api/placeholder/<int:w>/<int:h>")
+def placeholder(w, h):
+    return jsonify({"message": f"Placeholder {w}x{h}"})
 
 @app.route("/recommend", methods=["GET"])
 def recommend():
