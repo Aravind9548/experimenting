@@ -1,19 +1,34 @@
-name: Deploy
+name: Deploy Full Stack App
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Pull and run containers
-        run: |
-          docker pull aravindreddy9548/myapp-backend:latest
-          docker pull aravindreddy9548/myapp-frontend:latest
-          docker-compose up -d
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Install Docker Compose
+      run: |
+        sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        docker-compose --version
+
+    - name: Pull latest images and start containers
+      run: |
+        docker pull aravindreddy9548/myapp-backend:latest
+        docker pull aravindreddy9548/myapp-frontend:latest
+        docker-compose up -d
