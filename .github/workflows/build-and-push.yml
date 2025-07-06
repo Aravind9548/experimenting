@@ -1,8 +1,9 @@
-name: Build and Push Full Stack App
+name: Build and Push to Docker Hub
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     paths:
       - 'backend/**'
       - 'frontend/**'
@@ -10,17 +11,13 @@ on:
       - '.github/workflows/**'
 
 jobs:
-  build:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Log in to Docker Hub
+      - name: Docker login
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
