@@ -32,9 +32,10 @@ feature_matrix = X
 @app.route("/api/placeholder/<int:w>/<int:h>")
 def placeholder(w, h):
     return jsonify({"message": f"Placeholder {w}x{h}"})
-@app.route("/health", methods=["GET"])
-def health_check():
-    return jsonify({"status": "ok", "message": "Backend updated and working ✅"})
+@app.route("/")
+def home():
+    return jsonify({"status": "ok", "message": "🔥 New Build Deployed!"})
+
 
 
 @app.route("/recommend", methods=["GET"])
